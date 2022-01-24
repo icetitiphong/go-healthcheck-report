@@ -18,14 +18,19 @@ func NewGetHealthCheckReportHandler(getHealthCheckReportFunc health.GetHealthChe
 }
 
 func (h *getHealthCheckReportHandler) HealthCheckReport(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Perform website checking... ")
+
 	resp, err := h.getHealthCheckReportFunc()
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
+		fmt.Println("Fail ", err.Error())
 		return
 	}
 
 	//Print operation result to console
+	fmt.Println("Done!")
+	fmt.Println("")
 	fmt.Println("Checked websites: ", resp.TotalWebsites)
 	fmt.Println("Successful websites: ", resp.Success)
 	fmt.Println("Failure websites: ", resp.Failure)
